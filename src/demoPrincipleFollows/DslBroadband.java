@@ -1,18 +1,16 @@
 package demoPrincipleFollows;
 
-// this class follows open closed principle
-public class DslBroadband extends BroadbandPlan   {
+//This class follows Liskov Substitution Principle
+public class DslBroadband extends Broadband {
 
     public DslBroadband(String speed, int durationInMonths) {
         super(speed, durationInMonths);
     }
 
-    @Override
-    public void getBroadbandCost(BroadbandPlan plan) {
-        CostCalculation cost = new CostCalculation();
-        double calculatedCost  = cost.getPlanCost(plan, 2);
+    public void getBroadbandCost(BroadbandCost speed, Broadband plan) {
+        super.cost=speed.getCalculatedCost(plan);
 
-        System.out.println("Cost for plan you have selected will be " + calculatedCost);
+        System.out.println("Cost for plan you have selected will be " + plan.cost);
     }
 
 }

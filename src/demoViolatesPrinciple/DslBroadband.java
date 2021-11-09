@@ -1,42 +1,33 @@
 package demoViolatesPrinciple;
 
 
-public class DslBroadband extends BroadbandPlan {
+public class DslBroadband extends Broadband {
 
     public DslBroadband(String speed, int durationInMonths) {
         super(speed, durationInMonths);
     }
 
-    // this violates open closed principle
+
     @Override
-    public void getBroadbandCost(BroadbandPlan plan) {
-        DslBroadband dslBroadband = new DslBroadband("LOW_SPEED", 6);
-        double calculatedCost  = 0;
+    public void getBroadbandCost(Broadband plan) {
+        BroadbandCost broadbandCost = new BroadbandCost();
+        super.cost  = broadbandCost.getCalculatedCost(plan);
 
-        switch (plan.speed) {
-            case "LOW_SPEED":
-                calculatedCost =  2 * plan.durationInMonths * 250;
-                break;
-            case "HIGH_SPEED":
-                calculatedCost = 2 * plan.durationInMonths * 350;
-                break;
-            default:
-                System.out.println("Don't support this plan");
-        }
-
-        System.out.println("Cost for plan you have selected will be " + calculatedCost);
+        System.out.println("Cost for plan you have selected will be " + plan.cost);
     }
 
     @Override
     public void getSubscription(String BroadbandType) {
-        System.out.println("subscribed");
+        System.out.print("Subscribed: ");
         super.getSubscription(BroadbandType);
     }
 
+
     // this violates Liskov substitution principle
 
-//    @Override
-//    public void getSetTopBoxTvCost() {
-//        System.out.println("Not Valid for this broadband");
-//    }
+    @Override
+    public double getSetTopBoxCost() {
+        System.out.println("SetTop Box Not Valid for this broadband");
+        return 0;
+    }
 }

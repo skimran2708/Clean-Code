@@ -1,40 +1,30 @@
 package demoViolatesPrinciple;
 
-public class CableModemBroadband extends BroadbandPlan {
+public class CableModemBroadband extends Broadband {
 
     public CableModemBroadband(String speed, int durationInMonths) {
         super(speed, durationInMonths);
     }
 
-    // this violates open closed principle
     @Override
-    public void getBroadbandCost(BroadbandPlan plan) {
-        double calculatedCost  = 0;
+    public void getBroadbandCost(Broadband plan) {
+        BroadbandCost broadbandCost = new BroadbandCost();
+        super.cost  = broadbandCost.getCalculatedCost(plan);
 
-        switch (plan.speed) {
-            case "LOW_SPEED":
-                calculatedCost =  4 * plan.durationInMonths * 250;
-                break;
-            case "HIGH_SPEED":
-                calculatedCost = 4 * plan.durationInMonths * 350;
-                break;
-            default:
-                System.out.println("Don't support this plan");
-        }
-
-        System.out.println("Cost for plan you have selected will be " + calculatedCost);
+        System.out.println("Cost for plan you have selected will be " + plan.cost);
     }
 
     @Override
-    public void getSetTopBoxTvCost() {
-        System.out.println("You have to opt out separately for this ");
-        double setTopBoxCost = 1000;
-        System.out.println("You will be charged " + setTopBoxCost + " monthly");
+    public double getSetTopBoxCost() {
+        System.out.println("You have opted out separately for SetTop Box ");
+        double setTopBoxCost = 500;
+        System.out.println("You will be charged " + setTopBoxCost + " monthly for SetTop Box");
+        return setTopBoxCost;
     }
 
 
     public void getSubscription(String BroadbandType) {
-        System.out.println("subscribed");
+        System.out.print("Subscribed: ");
         super.getSubscription(BroadbandType);
     }
 }

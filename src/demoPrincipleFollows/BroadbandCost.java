@@ -1,6 +1,7 @@
 package demoPrincipleFollows;
 
-// this interface follows dependency inversion principle
+// this interface follows Open-Close Principle and also Interface Segregation Principle
+
 public interface BroadbandCost {
-    double getPlanCost(BroadbandPlan plan, int BroadbandFactor);
+    double getCalculatedCost(Broadband plan);
 }
